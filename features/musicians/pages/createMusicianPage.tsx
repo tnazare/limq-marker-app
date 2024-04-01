@@ -4,6 +4,7 @@ import React from 'react'
 import { useRouter } from 'next/navigation';
 import CreateMusicianForm from '@/features/musicians/components/createMusicianForm'
 import { useCreateMusicianMutation } from '@/features/musicians/store/musicians'
+import NavigationBar from "@/features/common/components/navigationBar";
 
 function CreateMusicianPage() {
   const router = useRouter();
@@ -32,6 +33,7 @@ function CreateMusicianPage() {
   }, [isError, isSuccess, router])
   return (
     <div>
+      <NavigationBar/>
       <h1 className="text-3xl">Ajouter un musicien</h1>
       <CreateMusicianForm handleSubmit={handleSubmit} />
     </div>

@@ -4,6 +4,7 @@ import { useGetMusicianQuery,useUpdateMusicianMutation } from '@/features/musici
 import EditMusicianForm from '@/features/musicians/components/editMusicianForm';
 import type { IdParams } from '@/features/common/params/idParams';
 import {idParameterValidator} from "@/features/common/paramValidators/idParameterValidator";
+import NavigationBar from "@/features/common/components/navigationBar";
 
 function EditMusicianPage({ params }: IdParams) {
   const validationResult = idParameterValidator({ params });
@@ -41,6 +42,7 @@ function EditMusicianPage({ params }: IdParams) {
   }, [isError, isSuccess, router])
   return (
     <div>
+      <NavigationBar/>
       <h1 className="text-3xl">Modifier un.e musicien.ne</h1>
       {
         isFetching ? <p>Loading...</p> : (

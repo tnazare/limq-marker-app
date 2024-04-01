@@ -1,12 +1,15 @@
-import Link from "next/link"
+"use client";
+
+import NavigationBar from "@/features/common/components/navigationBar";
 
 export default function Home() {
   return (
-    <main className="p-2">
-      <h1 className="text-3xl">Welcome</h1>
-      <p>
-        <Link className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" href="/musicians">Gérer les Musiciens</Link>
-      </p>
-    </main>
+    <>
+      <NavigationBar/>
+      <main className="p-2">
+        <h1 className="text-3xl">Bienvenue dans l'outil de saisie des match des la Ligue d'Improvisation Musicale de
+          Québec</h1>
+      </main>
+    </>
   )
 }
