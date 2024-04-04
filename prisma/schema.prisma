@@ -1,9 +1,11 @@
 generator client {
   provider = "prisma-client-js"
 }
+
 generator zod {
   provider = "prisma-zod-generator"
 }
+
 datasource db {
   provider  = "postgresql"
   url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
@@ -16,15 +18,18 @@ model Musician {
   lastName         String        @map(name: "last_name")
   shortDescription String?       @map(name: "short_escription")
   biography        String?
+  musicianNumber   Int?          @unique @map("musician_number")
   matchPlayed      MatchPlayer[]
+
   @@map(name: "musicians")
 }
 
 model MatchPlayer {
   matchId    String
-  match      Match     @relation(fields: [matchId], references: [id])
+  match      Match    @relation(fields: [matchId], references: [id])
   musician   Musician @relation(fields: [musicianId], references: [id])
   musicianId String
+
   @@id([matchId, musicianId])
 }
 
@@ -33,5 +38,6 @@ model Match {
   date          DateTime
   matchPlayerId String
   matchPlayers  MatchPlayer[]
+
   @@map(name: "matchs")
 }

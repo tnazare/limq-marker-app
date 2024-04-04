@@ -22,6 +22,12 @@ const Schema: z.ZodType<Prisma.MusicianOrderByWithRelationInput> = z
         z.lazy(() => SortOrderInputObjectSchema),
       ])
       .optional(),
+    musicianNumber: z
+      .union([
+        z.lazy(() => SortOrderSchema),
+        z.lazy(() => SortOrderInputObjectSchema),
+      ])
+      .optional(),
     matchPlayed: z
       .lazy(() => MatchPlayerOrderByRelationAggregateInputObjectSchema)
       .optional(),

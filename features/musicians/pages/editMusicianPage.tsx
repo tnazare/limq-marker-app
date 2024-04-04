@@ -1,10 +1,10 @@
 import React from 'react'
 import { useRouter } from 'next/navigation';
-import { useGetMusicianQuery,useUpdateMusicianMutation } from '@/features/musicians/store/musicians'
-import EditMusicianForm from '@/features/musicians/components/editMusicianForm';
-import type { IdParams } from '@/features/common/params/idParams';
-import {idParameterValidator} from "@/features/common/paramValidators/idParameterValidator";
 import NavigationBar from "@/features/common/components/navigationBar";
+import {idParameterValidator} from "@/features/common/paramValidators/idParameterValidator";
+import EditMusicianForm from '@/features/musicians/components/editMusicianForm';
+import { useGetMusicianQuery,useUpdateMusicianMutation } from '@/features/musicians/store/musicians'
+import type { IdParams } from '@/features/common/params/idParams';
 
 function EditMusicianPage({ params }: IdParams) {
   const validationResult = idParameterValidator({ params });
@@ -24,12 +24,14 @@ function EditMusicianPage({ params }: IdParams) {
     const lastName = formData.get('lastName') as string;
     const shortDescription = formData.get('shortDescription') as string;
     const biography = formData.get('biography') as string;
+    const musicianNumber =  Number(formData.get('musicianNumber') as string);
     updateMusician({
       id,
       firstName,
       lastName,
       shortDescription,
       biography,
+      musicianNumber,
     })
   }
   React.useEffect(() => {
@@ -54,6 +56,7 @@ function EditMusicianPage({ params }: IdParams) {
               lastName: data.data.lastName,
               shortDescription: data.data.shortDescription || "",
               biography: data.data.biography || "",
+              musicianNumber: Number(data.data.musicianNumber) || 0,
             }}
             handleSubmit={handleSubmit} />
         )

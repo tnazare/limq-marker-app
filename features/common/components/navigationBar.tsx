@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link"
+import NavigationLink from "@/features/common/components/navigationLink";
 import logo from '@/public/images/limq-logo.png'
 import type {Url} from "node:url";
 import type {UrlObject} from "url";
-import NavigationLink from "@/features/common/components/navigationLink";
 
 function NavigationBar() {
   return (

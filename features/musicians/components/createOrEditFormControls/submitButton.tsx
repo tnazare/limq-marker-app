@@ -1,7 +1,12 @@
 import React from 'react'
+import {Button} from "@/features/common/components/shadcn-ui/button";
+
 function SubmitButton() {
   return (
-    <input type="submit" value="Sauvegarder" className="p-2 m-2 text-white bg-green-500 rounded" />
+    <Button asChild>
+      <input type="submit" value="Sauvegarder" className="p-2 m-2 text-white bg-green-500 rounded [&:hover]:cursor-pointer"/>
+    </Button>
   )
 }
+
 export default SubmitButton

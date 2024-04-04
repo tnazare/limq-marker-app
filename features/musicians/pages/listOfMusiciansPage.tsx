@@ -1,8 +1,8 @@
 import React from 'react'
+import NavigationBar from "@/features/common/components/navigationBar";
 import CreateNewMusicianButton from '@/features/musicians/components/listOfMusiciansPageComponents/createNewMusicianButton'
 import ListOfMusiciansComponent from '@/features/musicians/components/listOfMusiciansPageComponents/listOfMusicians'
 import { useDeleteMusicianMutation,useGetMusiciansQuery } from '@/features/musicians/store/musicians'
-import NavigationBar from "@/features/common/components/navigationBar";
 
 function ListOfMusiciansPage() {
   const { isFetching, isError, error, isSuccess, data, refetch } = useGetMusiciansQuery(undefined, {
@@ -24,8 +24,8 @@ function ListOfMusiciansPage() {
   return (
     <div>
       <NavigationBar/>
-      <h1 className="text-3xl">List of Musicians</h1>
-      {isFetching && <div>Loading...</div>}
+      <h1 className="text-3xl">Liste des musiciens de la ligue</h1>
+      {isFetching && <div>En chargement...</div>}
       {isError && <div>{error.toString()}</div>}
       {isSuccess && data && data.data && (
         <>

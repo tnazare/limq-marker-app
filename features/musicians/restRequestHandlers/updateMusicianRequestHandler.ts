@@ -23,7 +23,7 @@ const updateMusicianRequestHandlerBuilderOptions: RestRequestHandlerBuilderOptio
   },
   onValidRequestAsync: async (req: NextRequest, details) => {
     if (details && details.params && details.validatedRequestBody) {
-      const id = details.params.params.id;
+      const {id} = details.params.params;
       const updateArgs: Prisma.MusicianUpdateArgs = {
         where: { id },
         data: details.validatedRequestBody,

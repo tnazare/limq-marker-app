@@ -6,4 +6,5 @@ export const MusicianScalarFieldEnumSchema = z.enum([
   'lastName',
   'shortDescription',
   'biography',
+  'musicianNumber',
 ]);

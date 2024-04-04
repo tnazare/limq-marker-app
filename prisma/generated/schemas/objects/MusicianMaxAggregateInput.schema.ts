@@ -9,6 +9,7 @@ const Schema: z.ZodType<Prisma.MusicianMaxAggregateInputType> = z
     lastName: z.literal(true).optional(),
     shortDescription: z.literal(true).optional(),
     biography: z.literal(true).optional(),
+    musicianNumber: z.literal(true).optional(),
   })
   .strict();
 

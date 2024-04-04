@@ -1,5 +1,5 @@
-import {ZodIssue} from "zod";
 import {badRequestErrorResponse} from "./badRequestErrorResponse";
+import type {ZodIssue} from "zod";
 
 export const badRequestErrorResponseFromZodIssues = (issues: ZodIssue[] | undefined) => {
   if(issues) {
@@ -26,7 +26,7 @@ export const badRequestErrorResponseFromZodIssues = (issues: ZodIssue[] | undefi
     });
 
     return badRequestErrorResponse(additionalDetails.join(". "));
-  } else {
+  } 
     return badRequestErrorResponse();
-  }
+  
 }

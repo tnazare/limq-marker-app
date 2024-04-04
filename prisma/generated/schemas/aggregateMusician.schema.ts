@@ -5,6 +5,8 @@ import { MusicianWhereUniqueInputObjectSchema } from './objects/MusicianWhereUni
 import { MusicianCountAggregateInputObjectSchema } from './objects/MusicianCountAggregateInput.schema';
 import { MusicianMinAggregateInputObjectSchema } from './objects/MusicianMinAggregateInput.schema';
 import { MusicianMaxAggregateInputObjectSchema } from './objects/MusicianMaxAggregateInput.schema';
+import { MusicianAvgAggregateInputObjectSchema } from './objects/MusicianAvgAggregateInput.schema';
+import { MusicianSumAggregateInputObjectSchema } from './objects/MusicianSumAggregateInput.schema';
 
 export const MusicianAggregateSchema = z.object({
   orderBy: z
@@ -22,4 +24,6 @@ export const MusicianAggregateSchema = z.object({
     .optional(),
   _min: MusicianMinAggregateInputObjectSchema.optional(),
   _max: MusicianMaxAggregateInputObjectSchema.optional(),
+  _avg: MusicianAvgAggregateInputObjectSchema.optional(),
+  _sum: MusicianSumAggregateInputObjectSchema.optional(),
 });

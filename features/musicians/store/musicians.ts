@@ -1,7 +1,7 @@
-import { api } from '@/features/common/store/api'
-import type { Prisma } from '@prisma/client'
-import type { MusicianDetailsResponseModel } from '@/features/musicians/restResponseModels/musicianDetailsResponseModel'
-import type { MusiciansListResponseModel } from '@/features/musicians/restResponseModels/musiciansListResponseModel'
+import {api} from '@/features/common/store/api'
+import type {Prisma} from '@prisma/client'
+import type {MusicianDetailsResponseModel} from '@/features/musicians/restResponseModels/musicianDetailsResponseModel'
+import type {MusiciansListResponseModel} from '@/features/musicians/restResponseModels/musiciansListResponseModel'
 
 type MusicianUpdateInputWithId = Prisma.MusicianUpdateInput & {
   id: string
@@ -15,20 +15,27 @@ export const musiciansApi = api.injectEndpoints({
       query: (id) => `musicians/${id}`,
     }),
     createMusician: builder.mutation<MusicianDetailsResponseModel, Prisma.MusicianCreateInput>({
-      query: (body) => ({
+      query: ({firstName, lastName, shortDescription, biography, musicianNumber}) => ({
         url: 'musicians',
         method: 'POST',
-        body
+        body: {
+          firstName,
+          lastName,
+          shortDescription,
+          biography,
+          musicianNumber,
+        }
       })
     }),
     updateMusician: builder.mutation<MusicianDetailsResponseModel, MusicianUpdateInputWithId>({
       query: (data) => {
-        const { id } = data;
+        const {id} = data;
         const dataToPut: Prisma.MusicianUpdateInput = {
           firstName: data.firstName,
           lastName: data.lastName,
           shortDescription: data.shortDescription,
-          biography: data.biography
+          biography: data.biography,
+          musicianNumber: Number(data.musicianNumber),
         }
         return {
           url: `musicians/${id}`,
@@ -39,9 +46,9 @@ export const musiciansApi = api.injectEndpoints({
     }),
     deleteMusician: builder.mutation<undefined, String>({
       query: (id) => ({
-          url: `musicians/${id}`,
-          method: 'DELETE'
-        })
+        url: `musicians/${id}`,
+        method: 'DELETE'
+      })
     })
   }),
 })

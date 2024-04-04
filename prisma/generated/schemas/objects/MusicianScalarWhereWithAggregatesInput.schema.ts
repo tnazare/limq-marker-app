@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { StringWithAggregatesFilterObjectSchema } from './StringWithAggregatesFilter.schema';
 import { StringNullableWithAggregatesFilterObjectSchema } from './StringNullableWithAggregatesFilter.schema';
+import { IntNullableWithAggregatesFilterObjectSchema } from './IntNullableWithAggregatesFilter.schema';
 
 import type { Prisma } from '@prisma/client';
 
@@ -46,6 +47,13 @@ const Schema: z.ZodType<Prisma.MusicianScalarWhereWithAggregatesInput> = z
       .union([
         z.lazy(() => StringNullableWithAggregatesFilterObjectSchema),
         z.string(),
+      ])
+      .optional()
+      .nullable(),
+    musicianNumber: z
+      .union([
+        z.lazy(() => IntNullableWithAggregatesFilterObjectSchema),
+        z.number(),
       ])
       .optional()
       .nullable(),

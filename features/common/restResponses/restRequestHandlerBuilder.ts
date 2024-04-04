@@ -1,10 +1,10 @@
-import {NextRequest, NextResponse} from "next/server";
 import {badRequestErrorResponse} from "@/features/common/restResponses/badRequestErrorResponse";
 import {
   badRequestErrorResponseFromZodIssues
 } from "@/features/common/restResponses/badRequestErrorResponseFromZodIssues";
 import {internalServerErrorResponse} from "@/features/common/restResponses/internalServerErrorResponse";
-import {ZodIssue} from "zod";
+import type {NextRequest, NextResponse} from "next/server";
+import type {ZodIssue} from "zod";
 
 interface RestRequestValidationResult<RequestBodyType> {
   success: boolean;
@@ -27,7 +27,7 @@ export function restRequestHandlerBuilder<ParamsType, RequestBodyType>(options: 
   return async (req: NextRequest, params: ParamsType): Promise<NextResponse> => {
     try {
       let isValidRequest: boolean = false;
-      let details: { validatedRequestBody?: RequestBodyType, params?: ParamsType } = {};
+      const details: { validatedRequestBody?: RequestBodyType, params?: ParamsType } = {};
       if (options.onValidateParams) {
         const {isValid, errorMessage} = options.onValidateParams(params);
         if (!isValid) {
@@ -44,19 +44,19 @@ export function restRequestHandlerBuilder<ParamsType, RequestBodyType>(options: 
           const {issues} = validation;
 
           return badRequestErrorResponseFromZodIssues(issues);
-        } else {
+        }
           details.validatedRequestBody = validation.validatedRequestBody;
           isValidRequest = true;
-        }
+
       } else {
         isValidRequest = true;
       }
       if (isValidRequest) {
         const response = await options.onValidRequestAsync(req, details);
         return response;
-      } else {
-        return badRequestErrorResponse();
       }
+        return badRequestErrorResponse();
+
     } catch (error) {
       if (error instanceof Error) {
         return internalServerErrorResponse(error.message);

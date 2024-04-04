@@ -11,7 +11,7 @@ function MusicianListItem({musician, deleteHandler}: MusicianListItemProps) {
     <div className='flex-1 m-1 p-2 bg-teal-400'>
       <div className='grid p-4 gap-2 grid-rows-2 bg-white rounded'>
         <div>
-          <div className='text-xl font-bold'>{musician.firstName} {musician.lastName} </div>
+          <div className='text-xl font-bold'><div className='font-extrabold'>#{musician.musicianNumber}</div> {musician.firstName} {musician.lastName} </div>
           <div>{musician.shortDescription}</div>
           <div>{musician.biography}</div>
         </div>

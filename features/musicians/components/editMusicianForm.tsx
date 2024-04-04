@@ -6,6 +6,8 @@ import LastNameFormControl from "@/features/musicians/components/createOrEditFor
 import ShortDescriptionFormControl
   from "@/features/musicians/components/createOrEditFormControls/shortDescriptionFormControl";
 import SubmitButton from '@/features/musicians/components/createOrEditFormControls/submitButton'
+import MusicianNumberFormControl
+  from "@/features/musicians/components/createOrEditFormControls/musicianNumberFormControl";
 
 interface EditMusicianFormProps {
   defaultValues: {
@@ -14,6 +16,7 @@ interface EditMusicianFormProps {
     lastName: string,
     shortDescription: string,
     biography: string,
+    musicianNumber: number
   },
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 }
@@ -25,6 +28,7 @@ function EditMusicianForm({ defaultValues, handleSubmit }: EditMusicianFormProps
       <LastNameFormControl defaultValue={defaultValues.lastName} />
       <ShortDescriptionFormControl defaultValue={defaultValues.shortDescription} />
       <BiographyFormControl defaultValue={defaultValues.biography} />
+      <MusicianNumberFormControl defaultValue={defaultValues.musicianNumber} />
       <SubmitButton />
     </form>
   )

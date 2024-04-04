@@ -2,9 +2,9 @@
 
 import React from 'react'
 import { useRouter } from 'next/navigation';
+import NavigationBar from "@/features/common/components/navigationBar";
 import CreateMusicianForm from '@/features/musicians/components/createMusicianForm'
 import { useCreateMusicianMutation } from '@/features/musicians/store/musicians'
-import NavigationBar from "@/features/common/components/navigationBar";
 
 function CreateMusicianPage() {
   const router = useRouter();

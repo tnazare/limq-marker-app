@@ -10,6 +10,7 @@ const Schema: z.ZodType<Prisma.MusicianCreateInput> = z
     lastName: z.string(),
     shortDescription: z.string().optional().nullable(),
     biography: z.string().optional().nullable(),
+    musicianNumber: z.number().optional().nullable(),
     matchPlayed: z
       .lazy(() => MatchPlayerCreateNestedManyWithoutMusicianInputObjectSchema)
       .optional(),

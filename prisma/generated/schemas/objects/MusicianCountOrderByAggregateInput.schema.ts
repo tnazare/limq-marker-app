@@ -10,6 +10,7 @@ const Schema: z.ZodType<Prisma.MusicianCountOrderByAggregateInput> = z
     lastName: z.lazy(() => SortOrderSchema).optional(),
     shortDescription: z.lazy(() => SortOrderSchema).optional(),
     biography: z.lazy(() => SortOrderSchema).optional(),
+    musicianNumber: z.lazy(() => SortOrderSchema).optional(),
   })
   .strict();
 
