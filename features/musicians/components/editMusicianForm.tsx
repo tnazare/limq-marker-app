@@ -3,11 +3,11 @@ import BiographyFormControl from "@/features/musicians/components/createOrEditFo
 import FirstNameFormControl from "@/features/musicians/components/createOrEditFormControls/firstNameFormControl";
 import IdFormControl from '@/features/musicians/components/createOrEditFormControls/idFormControl'
 import LastNameFormControl from "@/features/musicians/components/createOrEditFormControls/lastNameFormControl";
+import MusicianNumberFormControl
+  from "@/features/musicians/components/createOrEditFormControls/musicianNumberFormControl";
 import ShortDescriptionFormControl
   from "@/features/musicians/components/createOrEditFormControls/shortDescriptionFormControl";
 import SubmitButton from '@/features/musicians/components/createOrEditFormControls/submitButton'
-import MusicianNumberFormControl
-  from "@/features/musicians/components/createOrEditFormControls/musicianNumberFormControl";
 
 interface EditMusicianFormProps {
   defaultValues: {

@@ -1,26 +1,14 @@
 import React from 'react'
+import TextInputFormControl from "@/features/common/components/createOrEditFormControls/textInputFormControl";
 
 interface LastNameFormControlProps {
   defaultValue: string
 }
-function LastNameFormControl({ defaultValue }: LastNameFormControlProps) {
-  const [lastName, setLastName] = React.useState(defaultValue);
+
+function LastNameFormControl({defaultValue}: LastNameFormControlProps) {
   return (
-    <>
-      <label
-        className="p-2 m-2 text-white bg-green-500 rounded"
-        htmlFor="lastName">
-        Nom
-      </label>
-      <input
-        className="p-2 m-2 text-black border border-gray-500 rounded"
-        type="text"
-        name="lastName"
-        id="lastName"
-        value={lastName}
-        onChange={(e) => setLastName(e.currentTarget.value)}
-      />
-    </>
+    <TextInputFormControl defaultValue="" name="lastName" label="Nom"/>
   )
 }
+
 export default LastNameFormControl

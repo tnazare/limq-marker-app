@@ -1,4 +1,6 @@
 import React from 'react'
+import {Input} from "@/features/common/components/shadcn-ui/input";
+import {Label} from "@/features/common/components/shadcn-ui/label";
 
 interface MusicianNumberFormControlProps {
   defaultValue: number
@@ -7,13 +9,13 @@ function MusicianNumberFormControl({ defaultValue }: MusicianNumberFormControlPr
   const [musicianNumber, setMusicianNumber] = React.useState(defaultValue);
   return (
     <>
-      <label
-        className="p-2 m-2 text-white bg-green-500 rounded"
+      <Label
+        className="p-2 m-2 text-gray-800 bg-white"
         htmlFor="musicianNumber">
-        Numéro de joueur
-      </label>
-      <input
-        className="p-2 m-2 text-black border border-gray-500 rounded"
+        Numéro de joueur:
+      </Label>
+      <Input
+        className="p-2 m-2 w-1/6 text-black border border-gray-500 rounded"
         type="text"
         name="musicianNumber"
         id="musicianNumber"

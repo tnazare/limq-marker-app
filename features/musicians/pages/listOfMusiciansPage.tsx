@@ -1,17 +1,18 @@
 import React from 'react'
 import NavigationBar from "@/features/common/components/navigationBar";
-import CreateNewMusicianButton from '@/features/musicians/components/listOfMusiciansPageComponents/createNewMusicianButton'
+import CreateNewMusicianButton
+  from '@/features/musicians/components/listOfMusiciansPageComponents/createNewMusicianButton'
 import ListOfMusiciansComponent from '@/features/musicians/components/listOfMusiciansPageComponents/listOfMusicians'
-import { useDeleteMusicianMutation,useGetMusiciansQuery } from '@/features/musicians/store/musicians'
+import {useDeleteMusicianMutation, useGetMusiciansQuery} from '@/features/musicians/store/musicians'
 
 function ListOfMusiciansPage() {
-  const { isFetching, isError, error, isSuccess, data, refetch } = useGetMusiciansQuery(undefined, {
+  const {isFetching, isError, error, isSuccess, data, refetch} = useGetMusiciansQuery(undefined, {
     refetchOnMountOrArgChange: true
   });
   const [deleteMusician, {isSuccess: deleteSuccess}] = useDeleteMusicianMutation();
   const deleteHandler = (id: string) => {
     // eslint-disable-next-line no-restricted-globals
-    const confirmed = confirm("Are you sure you want to delete this musician?");
+    const confirmed = confirm("Êtes vous sur de vouloir supprimer ce musicien?");
     if (confirmed) {
       deleteMusician(id);
     }
@@ -29,11 +30,12 @@ function ListOfMusiciansPage() {
       {isError && <div>{error.toString()}</div>}
       {isSuccess && data && data.data && (
         <>
-          <CreateNewMusicianButton />
-          <ListOfMusiciansComponent musicians={data.data} deleteHandler={deleteHandler} />
+          <CreateNewMusicianButton/>
+          <ListOfMusiciansComponent musicians={data.data} deleteHandler={deleteHandler}/>
         </>
       )}
     </div>
   )
 }
+
 export default ListOfMusiciansPage
