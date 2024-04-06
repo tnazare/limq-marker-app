@@ -12,9 +12,9 @@ function EditMusicianPage({ params }: IdParams) {
     throw new Error("Invalid id parameter");
   }
   const router = useRouter();
-  const [updateMusician, { isError, isSuccess }] = useUpdateMusicianMutation();
-  const { data, isFetching } = useGetMusicianQuery(params.id, {
-    refetchOnMountOrArgChange: true
+  const [updateMusician, { isError, isSuccess , error}] = useUpdateMusicianMutation();
+  const { data, isFetching,  } = useGetMusicianQuery(params.id, {
+    refetchOnMountOrArgChange: false,
   });
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,13 +35,14 @@ function EditMusicianPage({ params }: IdParams) {
     })
   }
   React.useEffect(() => {
-    if (isError) {
-      alert('Un problème est survenu pendant la modification du musicien.ne');
+    if (isError && error && 'data' in error) {
+      // @ts-ignore
+      alert(`Un problème est survenu pendant la modification du musicien.ne : ${error.data?.error.message}`);
     }
     if (isSuccess) {
       router.push("/musicians");
     }
-  }, [isError, isSuccess, router])
+  }, [isFetching, isError, isSuccess, error, router])
   return (
     <div>
       <NavigationBar/>

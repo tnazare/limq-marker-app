@@ -8,7 +8,7 @@ import { useCreateMusicianMutation } from '@/features/musicians/store/musicians'
 
 function CreateMusicianPage() {
   const router = useRouter();
-  const [createMusician, { isError, isSuccess }] = useCreateMusicianMutation();
+  const [createMusician, { isError, isSuccess,error }] = useCreateMusicianMutation();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -16,16 +16,19 @@ function CreateMusicianPage() {
     const lastName = formData.get('lastName') as string;
     const shortDescription = formData.get('shortDescription') as string;
     const biography = formData.get('biography') as string;
+    const musicianNumber = Number(formData.get('musicianNumber') as string);
     createMusician({
       firstName,
       lastName,
       shortDescription,
-      biography
+      biography,
+      musicianNumber,
     })
   }
   React.useEffect(() => {
-    if (isError) {
-      alert('Problème lors de l\'ajout du musicien');
+    if (isError && error && 'data' in error) {
+      // @ts-ignore
+      alert(`Un problème est survenu pendant la création du musicien.ne : ${error.data?.error.message}`);
     }
     if (isSuccess) {
       router.push("/musicians");

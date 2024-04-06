@@ -4,7 +4,7 @@ import {Button} from "@/features/common/components/shadcn-ui/button";
 function SubmitButton() {
   return (
     <Button asChild>
-      <input type="submit" value="Sauvegarder" className="p-2 m-2 text-white bg-green-500 rounded [&:hover]:cursor-pointer"/>
+      <input type="submit" value="Sauvegarder" className="p-2 m-2 w-1/6 text-white bg-green-500 rounded [&:hover]:cursor-pointer"/>
     </Button>
   )
 }

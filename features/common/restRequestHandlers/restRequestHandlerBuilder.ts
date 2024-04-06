@@ -1,4 +1,6 @@
+import {PrismaClientKnownRequestError} from "@prisma/client/runtime/library";
 import { badRequestErrorResponse } from "@/features/common/restResponses/badRequestErrorResponse";
+import {constraintExceptionErrorResponse} from "@/features/common/restResponses/contraintExceptionErrorResponse";
 import { badRequestErrorResponseFromZodIssues } from "../restResponses/badRequestErrorResponseFromZodIssues";
 import { internalServerErrorResponse } from "../restResponses/internalServerErrorResponse";
 import type { NextRequest, NextResponse } from "next/server";
@@ -19,6 +21,12 @@ export interface RestRequestHandlerBuilderOptions<ParamsType, RequestBodyType> {
   onValidateParams?: (params: ParamsType) => { isValid: boolean, errorMessage?: string };
   onValidateRequestAsync?: (req: NextRequest) => Promise<RestRequestValidationResult<RequestBodyType>>;
   onValidRequestAsync: (req: NextRequest, details?: ValidatedRequestDetailsParams<ParamsType, RequestBodyType>) => Promise<NextResponse>;
+}
+
+
+const errorIsDueToConflictOnTheMusicianNumberConstraint = (e: unknown) => {
+  // @ts-ignore
+  return e instanceof PrismaClientKnownRequestError && e.code === 'P2002' && e.meta?.target[0] === 'musician_number';
 }
 
 export function restRequestHandlerBuilder<ParamsType, RequestBodyType>(options: RestRequestHandlerBuilderOptions<ParamsType, RequestBodyType>) {
@@ -46,10 +54,10 @@ export function restRequestHandlerBuilder<ParamsType, RequestBodyType>(options: 
           const { issues } = validation;
 
           return badRequestErrorResponseFromZodIssues(issues);
-        } 
+        }
           details.validatedRequestBody = validation.validatedRequestBody;
           isValidRequest = true;
-        
+
       } else {
         isValidRequest = true;
       }
@@ -57,15 +65,17 @@ export function restRequestHandlerBuilder<ParamsType, RequestBodyType>(options: 
       if(isValidRequest) {
         const response = await options.onValidRequestAsync(req, details);
         return response;
-      } 
+      }
         return badRequestErrorResponse();
-      
+
 
     } catch (error) {
+      if (errorIsDueToConflictOnTheMusicianNumberConstraint(error)) {
+        return constraintExceptionErrorResponse("Ce numéro de joueur existe déjà")();
+      }
       if(error instanceof Error) {
         return internalServerErrorResponse(error.message);
       }
-
       return internalServerErrorResponse();
     }
   }

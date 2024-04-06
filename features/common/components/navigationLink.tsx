@@ -21,7 +21,6 @@ const navigationItemPropsDefault: NavigationItemProps = {
 function NavigationLink({text, classname, href, disabled}: NavigationItemProps) {
   const pathname = usePathname();
 
-  console.log(`pathname = ${pathname} \\ href = ${href}`);
   const isCurrentPath = href === pathname;
 
   function getClassName() {
