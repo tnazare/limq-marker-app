@@ -8,7 +8,7 @@ interface BiographyFormControlProps {
 
 function BiographyFormControl({defaultValue}: BiographyFormControlProps) {
   return (
-    <TextInputFormControl defaultValue="" name="biography" label="Biographie"/>
+    <TextInputFormControl defaultValue={defaultValue} name="biography" label="Biographie"/>
   )
 }
 

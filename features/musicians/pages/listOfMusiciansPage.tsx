@@ -1,7 +1,7 @@
 import React from 'react'
 import NavigationBar from "@/features/common/components/navigationBar";
 import CreateNewMusicianButton
-  from '@/features/musicians/components/listOfMusiciansPageComponents/createNewMusicianButton'
+  from "@/features/musicians/components/listOfMusiciansPageComponents/createNewMusicianButton";
 import ListOfMusiciansComponent from '@/features/musicians/components/listOfMusiciansPageComponents/listOfMusicians'
 import {useDeleteMusicianMutation, useGetMusiciansQuery} from '@/features/musicians/store/musicians'
 
@@ -25,15 +25,21 @@ function ListOfMusiciansPage() {
   return (
     <div>
       <NavigationBar/>
-      <h1 className="text-3xl">Liste des musiciens de la ligue</h1>
-      {isFetching && <div>En chargement...</div>}
-      {isError && <div>{error.toString()}</div>}
-      {isSuccess && data && data.data && (
-        <>
+      <div className='w-1/2'>
+        <div className='m-5'>
+          <h1 className="text-3xl">Liste des musiciens de la ligue</h1>
+        </div>
+        <div className='m-5'>
           <CreateNewMusicianButton/>
-          <ListOfMusiciansComponent musicians={data.data} deleteHandler={deleteHandler}/>
-        </>
-      )}
+        </div>
+        <div className='m-5'>
+          {isFetching && <div>En chargement...</div>}
+          {isError && <div>{error.toString()}</div>}
+          {isSuccess && data && data.data && (
+            <ListOfMusiciansComponent musicians={data.data} deleteHandler={deleteHandler}/>
+          )}
+        </div>
+      </div>
     </div>
   )
 }

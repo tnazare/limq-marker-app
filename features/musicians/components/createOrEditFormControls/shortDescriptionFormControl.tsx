@@ -7,7 +7,7 @@ interface ShortDescriptionFormControlProps {
 
 function ShortDescriptionFormControl({defaultValue}: ShortDescriptionFormControlProps) {
   return (
-    <TextInputFormControl defaultValue="" name="shortDescription" label="Courte description"/>
+    <TextInputFormControl defaultValue={defaultValue} name="shortDescription" label="Courte description"/>
   )
 }
 

@@ -7,7 +7,7 @@ interface LastNameFormControlProps {
 
 function LastNameFormControl({defaultValue}: LastNameFormControlProps) {
   return (
-    <TextInputFormControl defaultValue="" name="lastName" label="Nom"/>
+    <TextInputFormControl defaultValue={defaultValue} name="lastName" label="Nom"/>
   )
 }
 
