@@ -13,13 +13,18 @@ datasource db {
 }
 
 model Musician {
-  id               String        @id @default(cuid())
-  firstName        String        @map(name: "first_name")
-  lastName         String        @map(name: "last_name")
-  shortDescription String?       @map(name: "short_escription")
-  biography        String?
-  musicianNumber   Int?          @unique @map("musician_number")
-  matchPlayed      MatchPlayer[]
+  id                       String                     @id @default(cuid())
+  firstName                String                     @map(name: "first_name")
+  lastName                 String                     @map(name: "last_name")
+  shortDescription         String?                    @map(name: "short_escription")
+  biography                String?
+  musicianNumber           Int?                       @unique @map("musician_number")
+  matchPlayed              MatchPlayer[]
+  Team                     Team?                      @relation(fields: [teamId], references: [id])
+  teamId                   String?
+  Penalty                  Penalty[]
+  ImprovisationPlayerLeft  ImprovisationPlayerLeft[]
+  ImprovisationPlayerRight ImprovisationPlayerRight[]
 
   @@map(name: "musicians")
 }
@@ -34,10 +39,101 @@ model MatchPlayer {
 }
 
 model Match {
-  id            String        @id @default(cuid())
-  date          DateTime
-  matchPlayerId String
-  matchPlayers  MatchPlayer[]
+  id             String          @id @default(cuid())
+  date           DateTime
+  matchPlayerId  String
+  matchPlayers   MatchPlayer[]
+  improvisations Improvisation[]
+  Season         Season?         @relation(fields: [seasonId], references: [id])
+  seasonId       String?
 
   @@map(name: "matchs")
+}
+
+enum TeamColor {
+  BLUE
+  GREEN
+  RED
+  YELLOW
+}
+
+enum Nature {
+  COMPARED
+  MIXED
+}
+
+enum PenaltyType {
+  FAILURE_TO_COMPLY_TO_THE_CARD
+  GAME_DELAY
+  HAMMING
+  ILLEGAL_PROCEDURE
+  OTHER
+}
+
+model Team {
+  id            String          @id @default(cuid())
+  color         TeamColor
+  name          String
+  members       Musician[]
+  Penalty       Penalty[]
+  Improvisation Improvisation[]
+  Season        Season?         @relation(fields: [seasonId], references: [id])
+  seasonId      String?
+
+  @@map(name: "teams")
+}
+
+model Penalty {
+  id              String        @id @default(cuid())
+  improvisation   Improvisation @relation(fields: [improvisationId], references: [id])
+  team            Team          @relation(fields: [teamId], references: [id])
+  musician        Musician      @relation(fields: [musicianId], references: [id])
+  penaltyType     PenaltyType   @map(name: "penalty_type")
+  improvisationId String
+  teamId          String
+  musicianId      String
+
+  @@map(name: "penalties")
+}
+
+model ImprovisationPlayerLeft {
+  improvisation   Improvisation @relation(fields: [improvisationId], references: [id])
+  improvisationId String
+  musician        Musician      @relation(fields: [musicianId], references: [id])
+  musicianId      String
+
+  @@id([improvisationId, musicianId])
+}
+
+model ImprovisationPlayerRight {
+  improvisation   Improvisation @relation(fields: [improvisationId], references: [id])
+  improvisationId String
+  musician        Musician      @relation(fields: [musicianId], references: [id])
+  musicianId      String
+
+  @@id([improvisationId, musicianId])
+}
+
+model Improvisation {
+  id                        String                     @id @default(cuid())
+  period                    Int
+  improvisationNumber       Int                        @map(name: "improvisation_number")
+  nature                    Nature
+  improvisationPlayersLeft  ImprovisationPlayerLeft[]
+  improvisationPlayersRight ImprovisationPlayerRight[]
+  winningTeam               Team                       @relation(fields: [teamId], references: [id])
+  isExAequo                 Boolean                    @map(name: "is_ex_aequo")
+  Match                     Match?                     @relation(fields: [matchId], references: [id])
+  matchId                   String?
+  Penalty                   Penalty[]
+  teamId                    String
+
+  @@map(name: "improvisations")
+}
+
+model Season {
+  id        String   @id @default(cuid())
+  startDate DateTime @map(name: "start_date")
+  teams     Team[]
+  matches   Match[]
 }
