@@ -71,14 +71,14 @@ enum PenaltyType {
 }
 
 model Team {
-  id            String          @id @default(cuid())
-  color         TeamColor
-  name          String
-  members       Musician[]
-  Penalty       Penalty[]
-  Improvisation Improvisation[]
-  Season        Season?         @relation(fields: [seasonId], references: [id])
-  seasonId      String?
+  id             String          @id @default(cuid())
+  color          TeamColor
+  name           String
+  members        Musician[]
+  penalties      Penalty[]
+  improvisations Improvisation[]
+  season         Season?         @relation(fields: [seasonId], references: [id])
+  seasonId       String?
 
   @@map(name: "teams")
 }
@@ -136,4 +136,6 @@ model Season {
   startDate DateTime @map(name: "start_date")
   teams     Team[]
   matches   Match[]
+
+  @@map(name: "seasons")
 }
