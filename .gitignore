@@ -35,7 +35,7 @@ yarn-error.log*
 next-env.d.ts
 
 # Idea folders
-.idea/
+/.idea/
 
 # Prisma generated files
 prisma/generated
