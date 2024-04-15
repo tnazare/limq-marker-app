@@ -4,7 +4,6 @@
 /node_modules
 /.pnp
 .pnp.js
-.yarn/install-state.gz
 
 # testing
 /coverage
@@ -12,9 +11,6 @@
 # next.js
 /.next/
 /out/
-
-# IDE
-/.idea
 
 # production
 /build
@@ -37,3 +33,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Idea folders
+/.idea/
+
+# Prisma generated files
+prisma/generated
