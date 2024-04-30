@@ -7,6 +7,7 @@ export const metadata = {
   title: 'Outil de marquage de LIMQ',
   description: 'Cet outil permet la sasie des données de match',
 }
+
 export default function RootLayout({
                                      children,
                                    }: {

@@ -1,4 +1,4 @@
-import type { Prisma } from '@prisma/client';
+import type {Prisma} from '@prisma/client';
 
 export const musicianSelector = {
   id: true,
@@ -7,4 +7,4 @@ export const musicianSelector = {
   shortDescription: true,
   biography: true,
   musicianNumber: true,
-} satisfies Prisma.MusicianSelect;
+} satisfies Prisma.PersonSelect;
