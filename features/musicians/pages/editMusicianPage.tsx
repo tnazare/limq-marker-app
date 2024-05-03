@@ -1,19 +1,20 @@
 import React from 'react'
-import { useRouter } from 'next/navigation';
+import {useRouter} from 'next/navigation';
 import NavigationBar from "@/features/common/components/navigationBar";
 import {idParameterValidator} from "@/features/common/paramValidators/idParameterValidator";
 import EditMusicianForm from '@/features/musicians/components/editMusicianForm';
-import { useGetMusicianQuery,useUpdateMusicianMutation } from '@/features/musicians/store/musicians'
-import type { IdParams } from '@/features/common/params/idParams';
+import {useGetMusicianQuery, useUpdateMusicianMutation} from '@/features/musicians/store/musicians'
+import {PersonTypeSchema} from "@/prisma/generated/schemas";
+import type {IdParams} from '@/features/common/params/idParams';
 
-function EditMusicianPage({ params }: IdParams) {
-  const validationResult = idParameterValidator({ params });
+function EditMusicianPage({params}: IdParams) {
+  const validationResult = idParameterValidator({params});
   if (!validationResult.isValid) {
     throw new Error("Invalid id parameter");
   }
   const router = useRouter();
-  const [updateMusician, { isError, isSuccess , error}] = useUpdateMusicianMutation();
-  const { data, isFetching,  } = useGetMusicianQuery(params.id, {
+  const [updateMusician, {isError, isSuccess, error}] = useUpdateMusicianMutation();
+  const {data, isFetching,} = useGetMusicianQuery(params.id, {
     refetchOnMountOrArgChange: false,
   });
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,7 +25,8 @@ function EditMusicianPage({ params }: IdParams) {
     const lastName = formData.get('lastName') as string;
     const shortDescription = formData.get('shortDescription') as string;
     const biography = formData.get('biography') as string;
-    const musicianNumber =  Number(formData.get('musicianNumber') as string);
+    const musicianNumber = Number(formData.get('musicianNumber') as string);
+    const type = PersonTypeSchema.parse(formData.get('type') as string);
     updateMusician({
       id,
       firstName,
@@ -32,6 +34,7 @@ function EditMusicianPage({ params }: IdParams) {
       shortDescription,
       biography,
       musicianNumber,
+      type,
     })
   }
   React.useEffect(() => {
@@ -58,11 +61,13 @@ function EditMusicianPage({ params }: IdParams) {
               shortDescription: data.data.shortDescription || "",
               biography: data.data.biography || "",
               musicianNumber: Number(data.data.musicianNumber) || 0,
+              type: data.data.type.toString()
             }}
-            handleSubmit={handleSubmit} />
+            handleSubmit={handleSubmit}/>
         )
       }
     </div>
   )
 }
+
 export default EditMusicianPage

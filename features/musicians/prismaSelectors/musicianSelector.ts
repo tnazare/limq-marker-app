@@ -7,4 +7,5 @@ export const musicianSelector = {
   shortDescription: true,
   biography: true,
   musicianNumber: true,
+  type: true,
 } satisfies Prisma.PersonSelect;
