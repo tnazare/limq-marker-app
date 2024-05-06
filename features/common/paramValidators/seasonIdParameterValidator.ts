@@ -1,3 +1,3 @@
-import type { IdParams } from "@/features/common/params/idParams";
+import type { SeasonIdParams } from "@/features/common/params/seasonIdParams";
 
-export const idParameterValidator = ({ params }: IdParams): { isValid: boolean, errorMessage?: string } => ({ isValid: true })
+export const seasonIdParameterValidator = ({ params }: SeasonIdParams): { isValid: boolean, errorMessage?: string } => ({ isValid: true })

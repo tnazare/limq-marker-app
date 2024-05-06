@@ -1,5 +1,5 @@
-export interface IdParams {
+export interface SeasonIdParams {
   params: {
-    id: string;
+    seasonId: string;
   }
 }

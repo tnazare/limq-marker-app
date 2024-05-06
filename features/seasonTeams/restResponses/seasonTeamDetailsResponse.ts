@@ -1,5 +1,5 @@
 import { okResponse } from "@/features/common/restResponses/okResponse";
 import type { NextResponse } from "next/server";
-import type { MusicianPayload } from "@/features/musicians/prismaPayloads/musicianPayload";
+import type { SeasonTeamPayload } from "@/features/seasonTeams/prismaPayloads/seasonTeamPayload";
 
-export const musicianDetailsResponse = (musician: MusicianPayload): NextResponse => okResponse(musician)
+export const seasonTeamDetailsResponse = (seasonTeam: SeasonTeamPayload): NextResponse => okResponse(seasonTeam)

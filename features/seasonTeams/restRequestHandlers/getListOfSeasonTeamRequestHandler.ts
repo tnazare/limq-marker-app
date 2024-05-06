@@ -1,20 +1,31 @@
-import {prismaClient} from "@/features/common/prisma/prismaClient";
-import {restRequestHandlerBuilder} from "@/features/common/restRequestHandlers/restRequestHandlerBuilder";
-import {musicianSelector} from "@/features/musicians/prismaSelectors/musicianSelector";
-import {musiciansListResponse} from "@/features/musicians/restResponses/listOfMusiciansResponse";
-import {PersonTypeSchema} from "@/prisma/generated/schemas";
-import type {NextRequest} from "next/server";
-import type {RestRequestHandlerBuilderOptions} from "@/features/common/restRequestHandlers/restRequestHandlerBuilder";
+import { prismaClient } from "@/features/common/prisma/prismaClient";
+import { restRequestHandlerBuilder } from "@/features/common/restRequestHandlers/restRequestHandlerBuilder";
+import { seasonTeamSelector } from "@/features/seasonTeams/prismaSelectors/seasonTeamSelector";
+import type { NextRequest } from "next/server";
+import type { RestRequestHandlerBuilderOptions } from "@/features/common/restRequestHandlers/restRequestHandlerBuilder";
+import { seasonTeamsListResponse } from "@/features/seasonTeams/restResponses/listOfSeasonTeamsResponse";
+import { SeasonIdParams } from "@/features/common/params/seasonIdParams";
+import { seasonIdParameterValidator } from "@/features/common/paramValidators/seasonIdParameterValidator";
+import { notFoundErrorResponse } from "@/features/common/restResponses/notFoundErrorResponse";
 
-const getListOfMusiciansRequestHandlerBuilderOptions: RestRequestHandlerBuilderOptions<undefined, undefined> = {
-  onValidRequestAsync: async (req: NextRequest) => {
-    const musicians = await prismaClient.person.findMany({
-      select: musicianSelector,
-      where: {
-        type: PersonTypeSchema.enum.MUSICIAN
+const getListOfSeasonTeamsRequestHandlerBuilderOptions: RestRequestHandlerBuilderOptions<SeasonIdParams, undefined> = {
+  onValidateParams: seasonIdParameterValidator,
+  onValidRequestAsync: async (req: NextRequest, details) => {
+    if (details && details.params) {
+      const { params } = details.params;
+      const { seasonId } = params;
+      const seasonTeams = await prismaClient.seasonTeam.findMany({
+        select: seasonTeamSelector,
+        where: {
+          seasonId: seasonId
+        }
+      });
+      if (seasonTeams) {
+        return seasonTeamsListResponse(seasonTeams);
       }
-    });
-    return musiciansListResponse(musicians);
+      return notFoundErrorResponse();
+    }
+    throw new Error("Params were not defined");
   }
 }
-export const getListOfMusiciansRequestHandler = restRequestHandlerBuilder(getListOfMusiciansRequestHandlerBuilderOptions);
+export const getListOfSeasonTeamsRequestHandler = restRequestHandlerBuilder(getListOfSeasonTeamsRequestHandlerBuilderOptions);
