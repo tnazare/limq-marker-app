@@ -12,32 +12,158 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-model Musician {
-  id               String        @id @default(cuid())
-  firstName        String        @map(name: "first_name")
-  lastName         String        @map(name: "last_name")
-  shortDescription String?       @map(name: "short_escription")
-  biography        String?
-  musicianNumber   Int?          @unique @map("musician_number")
-  matchPlayed      MatchPlayer[]
-
-  @@map(name: "musicians")
+model Person {
+  id                   String                @id @default(cuid())
+  firstName            String                @map(name: "first_name")
+  lastName             String                @map(name: "last_name")
+  biography            String?
+  shortDescription     String?               @map(name: "short_description")
+  musicianNumber       Int?                  @unique @map("musician_number")
+  type                 PersonType
+  isRefereeIn          Match[]               @relation(name: "referee")
+  isLineRefereeIn      Match[]               @relation(name: "line_referee")
+  isStaticiansIn       Match[]               @relation(name: "statistician")
+  isMasterOfCeremonyIn Match[]               @relation(name: "master_of_ceremony")
+  isAnalystIn          Match[]               @relation(name: "analyst")
+  isMvpIn              Match[]               @relation(name: "mvp")
+  isSecondMvpIn        Match[]               @relation(name: "second_mvp")
+  isThirdMvpIn         Match[]               @relation(name: "thrid_mvp")
+  memberOf             MatchTeam[]
+  penalties            Penalty[]
+  playsIn              Improvisation[]
+  SeasonTeam           SeasonTeam?           @relation(fields: [seasonTeamId], references: [id])
+  seasonTeamId         String?
+  improvisationPlayers ImprovisationPlayer[]
 }
 
-model MatchPlayer {
-  matchId    String
-  match      Match    @relation(fields: [matchId], references: [id])
-  musician   Musician @relation(fields: [musicianId], references: [id])
-  musicianId String
-
-  @@id([matchId, musicianId])
+enum PersonType {
+  REGULAR
+  MUSICIAN
 }
 
 model Match {
-  id            String        @id @default(cuid())
-  date          DateTime
-  matchPlayerId String
-  matchPlayers  MatchPlayer[]
+  id                String          @id @default(cuid())
+  date              DateTime
+  number            Int
+  teams             MatchTeam[]
+  periods           Period[]
+  referees          Person[]        @relation(name: "referee")
+  lineReferees      Person[]        @relation(name: "line_referee")
+  statisticians     Person[]        @relation(name: "statistician")
+  masterOfCeremony  Person[]        @relation(name: "master_of_ceremony")
+  analyst           Person[]        @relation(name: "analyst")
+  mvp               Person?         @relation(fields: [mvpPersonId], references: [id], name: "mvp")
+  mvpPersonId       String?
+  secondMvp         Person?         @relation(fields: [secondMvpPersonId], references: [id], name: "second_mvp")
+  secondMvpPersonId String?
+  thirdMvp          Person?         @relation(fields: [thirdMvpPersonId], references: [id], name: "thrid_mvp")
+  thirdMvpPersonId  String?
+  type              MatchType
+  improvisations    Improvisation[]
+}
 
-  @@map(name: "matchs")
+enum MatchType {
+  REGULAR
+  SEMI_FINAL
+  FINAL
+  EXCEPTIONAL
+}
+
+enum TeamPosition {
+  LEFT
+  RIGHT
+}
+
+model Period {
+  id             String          @id @default(cuid())
+  number         Int
+  improvisations Improvisation[]
+  match          Match?          @relation(fields: [matchId], references: [id])
+  matchId        String?
+}
+
+model MatchTeam {
+  id             String          @id @default(cuid())
+  musicians      Person[]
+  color          TeamColor
+  position       TeamPosition
+  match          Match?          @relation(fields: [matchId], references: [id])
+  matchId        String?
+  penalties      Penalty[]
+  improvisations Improvisation[]
+}
+
+enum TeamColor {
+  BLUE
+  GREEN
+  RED
+  YELLOW
+}
+
+enum Nature {
+  COMPARED
+  MIXED
+}
+
+enum PenaltyType {
+  FAILURE_TO_COMPLY_TO_THE_CARD
+  GAME_DELAY
+  HAMMING
+  ILLEGAL_PROCEDURE
+  OTHER
+}
+
+enum PenaltyScope {
+  TEAM
+  MUSICIAN
+}
+
+model SeasonTeam {
+  id       String    @id @default(cuid())
+  color    TeamColor
+  name     String
+  members  Person[]
+  season   Season?   @relation(fields: [seasonId], references: [id])
+  seasonId String?
+}
+
+model Penalty {
+  id              String         @id @default(cuid())
+  matchTeam       MatchTeam      @relation(fields: [matchTeamId], references: [id])
+  musician        Person[]
+  scope           PenaltyScope   @map(name: "penalty_scope")
+  type            PenaltyType    @map(name: "penalty_type")
+  matchTeamId     String
+  Improvisation   Improvisation? @relation(fields: [improvisationId], references: [id])
+  improvisationId String?
+}
+
+model ImprovisationPlayer {
+  id              String         @id @default(cuid())
+  musician        Person?        @relation(fields: [musicianId], references: [id])
+  musicianId      String?
+  winner          Boolean
+  improvisation   Improvisation? @relation(fields: [improvisationId], references: [id])
+  improvisationId String?
+}
+
+model Improvisation {
+  id                   String                @id @default(cuid())
+  improvisationNumber  Int                   @map(name: "improvisation_number")
+  nature               Nature
+  improvisationPlayers ImprovisationPlayer[]
+  penalities           Penalty[]
+  winnerTeam           MatchTeam?            @relation(fields: [matchTeamId], references: [id])
+  matchTeamId          String?
+  winners              Person[]
+  Match                Match?                @relation(fields: [matchId], references: [id])
+  matchId              String?
+  Period               Period?               @relation(fields: [periodId], references: [id])
+  periodId             String?
+}
+
+model Season {
+  id        String       @id @default(cuid())
+  startDate DateTime     @map(name: "start_date")
+  teams     SeasonTeam[]
 }

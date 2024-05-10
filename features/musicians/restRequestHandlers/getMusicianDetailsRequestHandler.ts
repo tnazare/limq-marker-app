@@ -14,7 +14,7 @@ const getMusicianDetailsRequestHandlerBuilderOptions: RestRequestHandlerBuilderO
     if (details && details.params) {
       const {params} = details.params;
       const {id} = params;
-      const musician = await prismaClient.musician.findUnique({where: {id}, select: musicianSelector});
+      const musician = await prismaClient.person.findUnique({where: {id}, select: musicianSelector});
       if (musician) {
         return musicianDetailsResponse(musician);
       }

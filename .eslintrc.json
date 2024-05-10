@@ -1,3 +1,6 @@
 {
-  "extends": "peppy"
+  "extends": [
+    "peppy",
+    "plugin:@next/next/recommended"
+  ]
 }

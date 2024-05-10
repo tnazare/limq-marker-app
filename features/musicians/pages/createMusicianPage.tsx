@@ -1,14 +1,15 @@
 "use client";
 
 import React from 'react'
-import { useRouter } from 'next/navigation';
+import {useRouter} from 'next/navigation';
 import NavigationBar from "@/features/common/components/navigationBar";
 import CreateMusicianForm from '@/features/musicians/components/createMusicianForm'
-import { useCreateMusicianMutation } from '@/features/musicians/store/musicians'
+import {useCreateMusicianMutation} from '@/features/musicians/store/musicians'
+import {PersonTypeSchema} from "@/prisma/generated/schemas";
 
 function CreateMusicianPage() {
   const router = useRouter();
-  const [createMusician, { isError, isSuccess,error }] = useCreateMusicianMutation();
+  const [createMusician, {isError, isSuccess, error}] = useCreateMusicianMutation();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -17,12 +18,14 @@ function CreateMusicianPage() {
     const shortDescription = formData.get('shortDescription') as string;
     const biography = formData.get('biography') as string;
     const musicianNumber = Number(formData.get('musicianNumber') as string);
+    const type = PersonTypeSchema.parse(formData.get('type') as string);
     createMusician({
       firstName,
       lastName,
       shortDescription,
       biography,
       musicianNumber,
+      type,
     })
   }
   React.useEffect(() => {
@@ -38,8 +41,9 @@ function CreateMusicianPage() {
     <div>
       <NavigationBar/>
       <h1 className="text-3xl">Ajouter un musicien</h1>
-      <CreateMusicianForm handleSubmit={handleSubmit} />
+      <CreateMusicianForm handleSubmit={handleSubmit}/>
     </div>
   )
 }
+
 export default CreateMusicianPage
