@@ -18,13 +18,13 @@ function DatePickerFormControl({defaultValue}: DatePickerFormControlProps) {
   return (
     <>
       <input type="hidden" name="startDate" value={startDate?.toDateString()}/>
-      <Label>Date de début:</Label>
+      <Label className="p-2 m-2">Date de début:</Label>
       <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
         <PopoverTrigger asChild>
           <Button
             variant={"outline"}
             className={cn(
-              "w-[240px] pl-3 text-left font-normal",
+              "w-[280px] pl-3 m-2 text-left font-normal",
             )}
           >
             {startDate ? (
