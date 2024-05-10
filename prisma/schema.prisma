@@ -60,6 +60,8 @@ model Match {
   thirdMvpPersonId  String?
   type              MatchType
   improvisations    Improvisation[]
+  season            Season          @relation(fields: [seasonId], references: [id])
+  seasonId          String
 }
 
 enum MatchType {
@@ -164,6 +166,8 @@ model Improvisation {
 
 model Season {
   id        String       @id @default(cuid())
+  label     String
   startDate DateTime     @map(name: "start_date")
   teams     SeasonTeam[]
+  matches   Match[]
 }
