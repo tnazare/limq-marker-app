@@ -14,7 +14,7 @@ function NavigationBar() {
         <span className="h-[2px] mx-4 bg-gray-200 dark:bg-gray-800/30"/>
         <NavigationLink text={"Équipes"} href="/teams" disabled/>
         <span className="h-[2px] mx-4 bg-gray-200 dark:bg-gray-800/30"/>
-        <NavigationLink text={"Saisons"} href="/" disabled/>
+        <NavigationLink text={"Saisons"} href="/seasons"/>
         <span className="h-[2px] mx-4 bg-gray-200 dark:bg-gray-800/30"/>
         <NavigationLink text={"Matchs"} href="/" disabled/>
       </nav>
