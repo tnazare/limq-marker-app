@@ -1,5 +1,4 @@
-import { seasonIdParameterValidator } from "@/features/common/paramValidators/seasonIdParameterValidator";
-import { SeasonIdParams } from "@/features/common/params/seasonIdParams";
+
 import { prismaClient } from "@/features/common/prisma/prismaClient";
 import type { RestRequestHandlerBuilderOptions } from "@/features/common/restRequestHandlers/restRequestHandlerBuilder";
 import { restRequestHandlerBuilder } from "@/features/common/restRequestHandlers/restRequestHandlerBuilder";
@@ -8,9 +7,11 @@ import { seasonTeamDetailsResponse } from "@/features/seasonTeams/restResponses/
 import { SeasonTeamCreateInputObjectSchema } from "@/prisma/generated/schemas/objects/SeasonTeamCreateInput.schema";
 import type { Prisma } from "@prisma/client";
 import type { NextRequest } from "next/server";
+import {IdParams} from "@/features/common/params/idParams";
+import {idParameterValidator} from "@/features/common/paramValidators/idParameterValidator";
 
-const createSeasonTeamRequestHandlerBuilderOptions: RestRequestHandlerBuilderOptions<SeasonIdParams, Prisma.SeasonTeamCreateInput> = {
-    onValidateParams: seasonIdParameterValidator,
+const createSeasonTeamRequestHandlerBuilderOptions: RestRequestHandlerBuilderOptions<IdParams, Prisma.SeasonTeamCreateInput> = {
+    onValidateParams: idParameterValidator,
     onValidateRequestAsync: async (req: NextRequest) => {
         const requestBody = await req.json();
         const validation = SeasonTeamCreateInputObjectSchema.safeParse(requestBody);
@@ -28,10 +29,10 @@ const createSeasonTeamRequestHandlerBuilderOptions: RestRequestHandlerBuilderOpt
             };
             const seasonTeam = await prismaClient.seasonTeam.create(createArgs);
             const { params } = details.params;
-            const { seasonId } = params;
+            const { id } = params;
             const seasonUpdateArgs: Prisma.SeasonUpdateArgs = {
                 where: {
-                    id: seasonId
+                    id: id
                 }, data: {
                     teams: {
                         create: [details.validatedRequestBody]

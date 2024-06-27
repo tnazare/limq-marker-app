@@ -4,20 +4,20 @@ import { seasonTeamSelector } from "@/features/seasonTeams/prismaSelectors/seaso
 import type { NextRequest } from "next/server";
 import type { RestRequestHandlerBuilderOptions } from "@/features/common/restRequestHandlers/restRequestHandlerBuilder";
 import { seasonTeamsListResponse } from "@/features/seasonTeams/restResponses/listOfSeasonTeamsResponse";
-import { SeasonIdParams } from "@/features/common/params/seasonIdParams";
-import { seasonIdParameterValidator } from "@/features/common/paramValidators/seasonIdParameterValidator";
 import { notFoundErrorResponse } from "@/features/common/restResponses/notFoundErrorResponse";
+import {IdParams} from "@/features/common/params/idParams";
+import {idParameterValidator} from "@/features/common/paramValidators/idParameterValidator";
 
-const getListOfSeasonTeamsRequestHandlerBuilderOptions: RestRequestHandlerBuilderOptions<SeasonIdParams, undefined> = {
-  onValidateParams: seasonIdParameterValidator,
+const getListOfSeasonTeamsRequestHandlerBuilderOptions: RestRequestHandlerBuilderOptions<IdParams, undefined> = {
+  onValidateParams: idParameterValidator,
   onValidRequestAsync: async (req: NextRequest, details) => {
     if (details && details.params) {
       const { params } = details.params;
-      const { seasonId } = params;
+      const { id } = params;
       const seasonTeams = await prismaClient.seasonTeam.findMany({
         select: seasonTeamSelector,
         where: {
-          seasonId: seasonId
+          seasonId: id
         }
       });
       if (seasonTeams) {
