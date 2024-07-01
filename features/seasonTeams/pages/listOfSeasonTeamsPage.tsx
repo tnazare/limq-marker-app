@@ -36,7 +36,7 @@ function ListOfSeasonTeamsPage() {
     const [deleteSeasonTeam, {isSuccess: deleteSuccess}] = useDeleteSeasonTeamMutation();
     const deleteHandler = (id: string, seasonTeamId: string) => {
         // eslint-disable-next-line no-restricted-globals
-        const confirmed = confirm("Êtes vous sur de vouloir supprimer cette équipe?");
+        const confirmed = confirm("Êtes-vous sûr de vouloir supprimer cette équipe?");
         if (confirmed) {
             deleteSeasonTeam({seasonId: id, seasonTeamId});
         }

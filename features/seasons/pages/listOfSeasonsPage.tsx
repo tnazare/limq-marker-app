@@ -11,7 +11,7 @@ function ListOfSeasonsPage() {
   const [deleteSeason, {isSuccess: deleteSuccess}] = useDeleteSeasonMutation();
   const deleteHandler = (id: string) => {
     // eslint-disable-next-line no-restricted-globals
-    const confirmed = confirm("Êtes vous sur de vouloir supprimer cette saison?");
+    const confirmed = confirm("Êtes-vous sûr de vouloir supprimer cette saison?");
     if (confirmed) {
       deleteSeason(id);
     }

@@ -12,7 +12,7 @@ function ListOfMusiciansPage() {
   const [deleteMusician, {isSuccess: deleteSuccess}] = useDeleteMusicianMutation();
   const deleteHandler = (id: string) => {
     // eslint-disable-next-line no-restricted-globals
-    const confirmed = confirm("Êtes vous sur de vouloir supprimer ce musicien?");
+    const confirmed = confirm("Êtes-vous sûr de vouloir supprimer ce musicien?");
     if (confirmed) {
       deleteMusician(id);
     }
