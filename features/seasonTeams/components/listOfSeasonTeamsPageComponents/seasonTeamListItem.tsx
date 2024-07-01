@@ -6,10 +6,10 @@ import Link from "next/link";
 interface SeasonTeamListItemProps {
   seasonId: string;
   seasonTeam: SeasonTeamPayload,
-  deleteHandler: (seasonId: string, seasonTeamId: string) => void
+  deleteHandler: (seasonTeamId: string) => void
 }
 
-function SeasonTeamListItem({seasonId, seasonTeam, deleteHandler}: SeasonTeamListItemProps) {
+function SeasonTeamListItem({seasonTeam, deleteHandler}: SeasonTeamListItemProps) {
   return (
       <TableRow className='flex-1 m-1 p-2 even:bg-gray-50 odd:bg-white'>
         <TableCell className='border'>
@@ -20,7 +20,7 @@ function SeasonTeamListItem({seasonId, seasonTeam, deleteHandler}: SeasonTeamLis
         </TableCell>
         <TableCell className='border'>
           <button className='p-2 m-2 text-white bg-red-500 rounded'
-                  onClick={() => deleteHandler(seasonId, seasonTeam.id)}>Supprimer
+                  onClick={() => deleteHandler(seasonTeam.id)}>Supprimer
           </button>
         </TableCell>
       </TableRow>

@@ -6,7 +6,7 @@ import SeasonTeamListItem from "@/features/seasonTeams/components/listOfSeasonTe
 interface ListOfSeasonTeamsProps {
   seasonId: string
   seasonTeams: SeasonTeamPayload[]
-  deleteHandler: (seasonId: string, seasonTeamId: string) => void
+  deleteHandler: (seasonTeamId: string) => void
 }
 
 function ListOfSeasonTeams(props: ListOfSeasonTeamsProps) {

@@ -37,11 +37,11 @@ function ListOfSeasonTeamsPage({params}: IdParams) {
   });
 
   const [deleteSeasonTeam, {isSuccess: deleteSuccess}] = useDeleteSeasonTeamMutation();
-  const deleteHandler = (id: string, seasonTeamId: string) => {
+  const deleteHandler = (seasonTeamId: string) => {
     // eslint-disable-next-line no-restricted-globals
     const confirmed = confirm("Êtes-vous sûr de vouloir supprimer cette équipe?");
     if (confirmed) {
-      deleteSeasonTeam({seasonId: id, seasonTeamId});
+      deleteSeasonTeam({seasonId:seasonId, seasonTeamId:seasonTeamId});
     }
   }
   React.useEffect(() => {
@@ -75,11 +75,10 @@ function ListOfSeasonTeamsPage({params}: IdParams) {
             ) : null}
           </div>
           {!seasonId ? (
-              <div>Veuillez d'abord sélectionner une saison.</div>
+              <div className='m-5'>Veuillez d'abord sélectionner une saison.</div>
           ) : (
-              <>
-                <div className='m-5'>
-                  <CreateNewSeasonTeamButton seasonId={seasonId}/>
+              <><div className='m-5'>
+              <CreateNewSeasonTeamButton seasonId={seasonId}/>
                 </div>
                 <div className='m-5'>
                   {isFetching && <div>En chargement...</div>}
