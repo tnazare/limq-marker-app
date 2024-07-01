@@ -12,7 +12,7 @@ function NavigationBar() {
         <span className="h-[2px] mx-4 bg-gray-200 dark:bg-gray-800/30"/>
         <NavigationLink text={"Musiciens"} href="/musicians"/>
         <span className="h-[2px] mx-4 bg-gray-200 dark:bg-gray-800/30"/>
-        <NavigationLink text={"Équipes"} href="/teams" disabled/>
+        <NavigationLink text={"Équipes"} href="/teams" />
         <span className="h-[2px] mx-4 bg-gray-200 dark:bg-gray-800/30"/>
         <NavigationLink text={"Saisons"} href="/seasons"/>
         <span className="h-[2px] mx-4 bg-gray-200 dark:bg-gray-800/30"/>
