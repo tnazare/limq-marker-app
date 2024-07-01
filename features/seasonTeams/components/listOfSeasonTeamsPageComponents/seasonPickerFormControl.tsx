@@ -15,11 +15,11 @@ interface SeasonPickerFormControlProps {
     seasonSelectHandler: (id: string) => void
 }
 
-function SeasonPickerFormControl({dropDownLabel,seasons,seasonSelectHandler}: SeasonPickerFormControlProps) {
+function SeasonPickerFormControl({dropDownLabel, seasons, seasonSelectHandler}: SeasonPickerFormControlProps) {
     return (
         <Select onValueChange={seasonSelectHandler}>
             <SelectTrigger className="w-2/6 bg-white">
-                <SelectValue placeholder="Sélectionner une saison..." />
+                <SelectValue placeholder="Sélectionner une saison..."/>
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup className="bg-white">

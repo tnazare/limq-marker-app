@@ -2,8 +2,11 @@ import React from 'react'
 import {Table, TableBody, TableHead, TableHeader, TableRow} from "@/features/common/components/shadcn-ui/table";
 import {SeasonTeamPayload} from "@/features/seasonTeams/prismaPayloads/seasonTeamPayload";
 import SeasonTeamListItem from "@/features/seasonTeams/components/listOfSeasonTeamsPageComponents/seasonTeamListItem";
+
 interface ListOfSeasonTeamsProps {
+    seasonId: string
     seasonTeams: SeasonTeamPayload[]
+    deleteHandler: (seasonId: string, seasonTeamId: string) => void
 }
 
 function ListOfSeasonTeams(props: ListOfSeasonTeamsProps) {
@@ -18,7 +21,7 @@ function ListOfSeasonTeams(props: ListOfSeasonTeamsProps) {
             </TableHeader>
             <TableBody>
                 {props.seasonTeams.map((seasonTeam) => (
-                    <SeasonTeamListItem key={seasonTeam.id} seasonTeam={seasonTeam}/>
+                    <SeasonTeamListItem key={seasonTeam.id} seasonId={props.seasonId} seasonTeam={seasonTeam} deleteHandler={props.deleteHandler}/>
                 ))}
             </TableBody>
         </Table>

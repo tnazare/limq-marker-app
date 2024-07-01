@@ -1,5 +1,8 @@
 import React, {useState} from 'react'
-import {useGetSeasonTeamsQuery} from "@/features/seasonTeams/store/seasonTeams";
+import {
+    useDeleteSeasonTeamMutation,
+    useGetSeasonTeamsQuery
+} from "@/features/seasonTeams/store/seasonTeams";
 import NavigationBar from "@/features/common/components/navigationBar";
 import ListOfSeasonTeams from "@/features/seasonTeams/components/listOfSeasonTeamsPageComponents/listOfSeasonTeams";
 import SeasonPickerFormControl
@@ -29,6 +32,20 @@ function ListOfSeasonTeamsPage() {
     } = useGetSeasonTeamsQuery(seasonId, {
         refetchOnMountOrArgChange: true
     });
+
+    const [deleteSeasonTeam, {isSuccess: deleteSuccess}] = useDeleteSeasonTeamMutation();
+    const deleteHandler = (id: string, seasonTeamId: string) => {
+        // eslint-disable-next-line no-restricted-globals
+        const confirmed = confirm("Êtes vous sur de vouloir supprimer cette équipe?");
+        if (confirmed) {
+            deleteSeasonTeam({seasonId: id, seasonTeamId});
+        }
+    }
+    React.useEffect(() => {
+        if (deleteSuccess) {
+            refetch();
+        }
+    }, [deleteSuccess, refetch])
 
     return (
         <div>
@@ -62,7 +79,7 @@ function ListOfSeasonTeamsPage() {
                             {isFetching && <div>En chargement...</div>}
                             {isError && <div>{error.toString()}</div>}
                             {isSuccess && data && data.data && (
-                                <ListOfSeasonTeams seasonTeams={data.data}/>
+                                <ListOfSeasonTeams seasonId={seasonId} seasonTeams={data.data} deleteHandler={deleteHandler}/>
                             )}
                         </>
                     )}
