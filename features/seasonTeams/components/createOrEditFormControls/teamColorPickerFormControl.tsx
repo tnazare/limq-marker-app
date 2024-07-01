@@ -27,10 +27,16 @@ function TeamColorPickerFormControl() {
             <SelectGroup className="bg-white">
               <SelectLabel>{"Couleur"}</SelectLabel>
               <SelectItem value="BLUE">
-                BLUE
+                Bleu
+              </SelectItem>
+              <SelectItem value="YELLOW">
+                Jaune
+              </SelectItem>
+              <SelectItem value="RED">
+                Rouge
               </SelectItem>
               <SelectItem value="GREEN">
-                GREEN // TODO MAB Generate this from team color
+                Vert
               </SelectItem>
             </SelectGroup>
           </SelectContent>
