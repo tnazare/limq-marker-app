@@ -39,3 +39,9 @@ next-env.d.ts
 
 # Prisma generated files
 prisma/generated
+
+.env
+
+package-lock.json
+
+pnpm-lock.yaml
