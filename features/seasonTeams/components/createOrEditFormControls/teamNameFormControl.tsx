@@ -7,7 +7,7 @@ interface LabelFormControlProps {
 
 function TeamNameFormControl({defaultValue}: LabelFormControlProps) {
   return (
-    <TextInputFormControl defaultValue={defaultValue} name="teamName" label="Nom d'équipe"/>
+      <TextInputFormControl defaultValue={defaultValue} name="teamName" label="Nom d'équipe"/>
   )
 }
 

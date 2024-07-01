@@ -23,7 +23,7 @@ function CreateSeasonTeamPage({params}: IdParams) {
     const name = formData.get('teamName') as string;
     const color = TeamColorSchema.parse(formData.get('teamColor') as string);
     createSeasonTeam({
-      seasonId:params.id,
+      seasonId: params.id,
       name,
       color,
     });
