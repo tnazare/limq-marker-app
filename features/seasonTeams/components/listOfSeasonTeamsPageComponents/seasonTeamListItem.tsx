@@ -8,15 +8,14 @@ interface SeasonTeamListItemProps {
     deleteHandler: (id: string) => void
 }
 
-// TODO MAB THIS
-function SeasonTeamListItem({seasonTeam, deleteHandler}: SeasonTeamListItemProps) {
+function SeasonTeamListItem({seasonTeam}: SeasonTeamListItemProps) {
     return (
         <TableRow className='flex-1 m-1 p-2 even:bg-gray-50 odd:bg-white'>
             <TableCell className='border'>
                 {seasonTeam.name}
             </TableCell>
             <TableCell className='border'>
-                {format(seasonTeam.color, "PPP")}
+                {seasonTeam.color}
             </TableCell>
             <TableCell className='border'>
             </TableCell>
