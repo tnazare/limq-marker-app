@@ -6,7 +6,6 @@ import SeasonTeamListItem from "@/features/seasonTeams/components/listOfSeasonTe
 interface ListOfSeasonTeamsProps {
   seasonId: string
   seasonTeams: SeasonTeamPayload[]
-  deleteHandler: (seasonTeamId: string) => void
 }
 
 function ListOfSeasonTeams(props: ListOfSeasonTeamsProps) {
@@ -21,8 +20,7 @@ function ListOfSeasonTeams(props: ListOfSeasonTeamsProps) {
         </TableHeader>
         <TableBody>
           {props.seasonTeams.map((seasonTeam) => (
-              <SeasonTeamListItem key={seasonTeam.id} seasonId={props.seasonId} seasonTeam={seasonTeam}
-                                  deleteHandler={props.deleteHandler}/>
+              <SeasonTeamListItem key={seasonTeam.id} seasonId={props.seasonId} seasonTeam={seasonTeam}/>
           ))}
         </TableBody>
       </Table>

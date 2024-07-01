@@ -29,24 +29,16 @@ export const seasonTeamsApi = api.injectEndpoints({
             }
           }
         }
-    ),
-    deleteSeasonTeam: builder.mutation<undefined, SeasonTeamIdAndSeasonId>({
-      query: (data) => ({
-        url: `seasons/${data.seasonId}/seasonTeams{${data.seasonTeamId}`,
-        method: 'DELETE'
-      })
-    })
+    )
   }),
 })
 export const {
   useGetSeasonTeamsQuery,
-    useCreateSeasonTeamMutation,
-    useDeleteSeasonTeamMutation,
+  useCreateSeasonTeamMutation,
 } = seasonTeamsApi
 export const {
   endpoints: {
     getSeasonTeams,
-      createSeasonTeam,
-    deleteSeasonTeam
+    createSeasonTeam,
   }
 } = seasonTeamsApi

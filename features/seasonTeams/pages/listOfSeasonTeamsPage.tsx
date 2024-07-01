@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import {
-  useDeleteSeasonTeamMutation,
   useGetSeasonTeamsQuery
 } from "@/features/seasonTeams/store/seasonTeams";
 import NavigationBar from "@/features/common/components/navigationBar";
@@ -36,20 +35,6 @@ function ListOfSeasonTeamsPage({params}: IdParams) {
     refetchOnMountOrArgChange: true
   });
 
-  const [deleteSeasonTeam, {isSuccess: deleteSuccess}] = useDeleteSeasonTeamMutation();
-  const deleteHandler = (seasonTeamId: string) => {
-    // eslint-disable-next-line no-restricted-globals
-    const confirmed = confirm("Êtes-vous sûr de vouloir supprimer cette équipe?");
-    if (confirmed) {
-      deleteSeasonTeam({seasonId:seasonId, seasonTeamId:seasonTeamId});
-    }
-  }
-  React.useEffect(() => {
-    if (deleteSuccess) {
-      refetch();
-    }
-  }, [deleteSuccess, refetch])
-
   return (
       <div>
         <NavigationBar/>
@@ -77,14 +62,15 @@ function ListOfSeasonTeamsPage({params}: IdParams) {
           {!seasonId ? (
               <div className='m-5'>Veuillez d'abord sélectionner une saison.</div>
           ) : (
-              <><div className='m-5'>
-              <CreateNewSeasonTeamButton seasonId={seasonId}/>
+              <>
+                <div className='m-5'>
+                  <CreateNewSeasonTeamButton seasonId={seasonId}/>
                 </div>
                 <div className='m-5'>
                   {isFetching && <div>En chargement...</div>}
                   {isError && <div>{error.toString()}</div>}
                   {isSuccess && data && data.data && (
-                      <ListOfSeasonTeams seasonId={seasonId} seasonTeams={data.data} deleteHandler={deleteHandler}/>
+                      <ListOfSeasonTeams seasonId={seasonId} seasonTeams={data.data}/>
                   )}
                 </div>
               </>
