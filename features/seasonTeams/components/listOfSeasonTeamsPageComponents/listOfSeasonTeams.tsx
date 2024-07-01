@@ -4,28 +4,29 @@ import {SeasonTeamPayload} from "@/features/seasonTeams/prismaPayloads/seasonTea
 import SeasonTeamListItem from "@/features/seasonTeams/components/listOfSeasonTeamsPageComponents/seasonTeamListItem";
 
 interface ListOfSeasonTeamsProps {
-    seasonId: string
-    seasonTeams: SeasonTeamPayload[]
-    deleteHandler: (seasonId: string, seasonTeamId: string) => void
+  seasonId: string
+  seasonTeams: SeasonTeamPayload[]
+  deleteHandler: (seasonId: string, seasonTeamId: string) => void
 }
 
 function ListOfSeasonTeams(props: ListOfSeasonTeamsProps) {
-    return (
-        <Table className="table-auto w-1/2 border">
-            <TableHeader>
-                <TableRow className='bg-gray-300'>
-                    <TableHead className='w-[120px] border'>Nom</TableHead>
-                    <TableHead className='w-[80px] border'>Couleur</TableHead>
-                    <TableHead className='w-[80px] border'>Actions</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {props.seasonTeams.map((seasonTeam) => (
-                    <SeasonTeamListItem key={seasonTeam.id} seasonId={props.seasonId} seasonTeam={seasonTeam} deleteHandler={props.deleteHandler}/>
-                ))}
-            </TableBody>
-        </Table>
-    )
+  return (
+      <Table className="table-auto w-1/2 border">
+        <TableHeader>
+          <TableRow className='bg-gray-300'>
+            <TableHead className='w-[120px] border'>Nom</TableHead>
+            <TableHead className='w-[80px] border'>Couleur</TableHead>
+            <TableHead className='w-[80px] border'>Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {props.seasonTeams.map((seasonTeam) => (
+              <SeasonTeamListItem key={seasonTeam.id} seasonId={props.seasonId} seasonTeam={seasonTeam}
+                                  deleteHandler={props.deleteHandler}/>
+          ))}
+        </TableBody>
+      </Table>
+  )
 }
 
 export default ListOfSeasonTeams

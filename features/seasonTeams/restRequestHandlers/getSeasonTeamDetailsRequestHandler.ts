@@ -14,7 +14,10 @@ const getSeasonTeamDetailsRequestHandlerBuilderOptions: RestRequestHandlerBuilde
     if (details && details.params) {
       const {params} = details.params;
       const {id, seasonTeamId} = params;
-      const seasonTeam = await prismaClient.seasonTeam.findFirst({where: {id: seasonTeamId, seasonId:id}, select: seasonTeamSelector});
+      const seasonTeam = await prismaClient.seasonTeam.findFirst({
+        where: {id: seasonTeamId, seasonId: id},
+        select: seasonTeamSelector
+      });
       if (seasonTeam) {
         return seasonTeamDetailsResponse(seasonTeam);
       }

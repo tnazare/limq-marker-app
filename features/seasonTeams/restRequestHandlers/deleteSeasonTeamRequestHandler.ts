@@ -13,12 +13,12 @@ const deleteSeasonTeamRequestHandlerBuilderOptions: RestRequestHandlerBuilderOpt
   onValidRequestAsync: async (req: NextRequest, details) => {
     if (details && details.params) {
       const {params} = details.params;
-      const {id,seasonTeamId} = params;
+      const {id, seasonTeamId} = params;
       const seasonTeam = await prismaClient.seasonTeam.findFirst({where: {id: seasonTeamId, seasonId: id}})
       if (!seasonTeam) {
         return notFoundErrorResponse();
       }
-      await prismaClient.seasonTeam.delete({where: {id:seasonTeamId}});
+      await prismaClient.seasonTeam.delete({where: {id: seasonTeamId}});
       return noContentResponse();
     }
     throw new Error("Params were not defined");
