@@ -38,11 +38,11 @@ function CreateSeasonTeamPage({params}: IdParams) {
     }
   }, [isError, isSuccess, router])
   return (
-      <div>
-        <NavigationBar/>
-        <h1 className="text-3xl">Ajouter une équipe</h1>
-        <CreateSeasonTeamForm handleSubmit={handleSubmit}/>
-      </div>
+    <div>
+      <NavigationBar/>
+      <h1 className="text-3xl">Ajouter une équipe</h1>
+      <CreateSeasonTeamForm handleSubmit={handleSubmit}/>
+    </div>
   )
 }
 

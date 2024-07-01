@@ -36,47 +36,47 @@ function ListOfSeasonTeamsPage({params}: IdParams) {
   });
 
   return (
-      <div>
-        <NavigationBar/>
-        <div className='m-5'>
-          <h1 className="text-3xl">Liste des équipes de la ligue</h1>
-        </div>
-        <div className='w-1/2'>
-          <div className='m-5'>
-            {isFetchingSeason || isErrorSeason || (isSuccessSeason && dataSeason && dataSeason.data) ? (
-                <SeasonPickerFormControl
-                    dropDownLabel={
-                      isFetchingSeason ? "En chargement..." :
-                          isErrorSeason ? errorSeason.toString() :
-                              "Saisons"
-                    }
-                    seasons={
-                      isFetchingSeason || isErrorSeason ? [] :
-                          isSuccessSeason && dataSeason && dataSeason.data ? dataSeason.data :
-                              []
-                    }
-                    seasonSelectHandler={handleSelectedSeason}
-                />
-            ) : null}
-          </div>
-          {!seasonId ? (
-              <div className='m-5'>Veuillez d'abord sélectionner une saison.</div>
-          ) : (
-              <>
-                <div className='m-5'>
-                  <CreateNewSeasonTeamButton seasonId={seasonId}/>
-                </div>
-                <div className='m-5'>
-                  {isFetching && <div>En chargement...</div>}
-                  {isError && <div>{error.toString()}</div>}
-                  {isSuccess && data && data.data && (
-                      <ListOfSeasonTeams seasonId={seasonId} seasonTeams={data.data}/>
-                  )}
-                </div>
-              </>
-          )}
-        </div>
+    <div>
+      <NavigationBar/>
+      <div className='m-5'>
+        <h1 className="text-3xl">Liste des équipes de la ligue</h1>
       </div>
+      <div className='w-1/2'>
+        <div className='m-5'>
+          {isFetchingSeason || isErrorSeason || (isSuccessSeason && dataSeason && dataSeason.data) ? (
+            <SeasonPickerFormControl
+              dropDownLabel={
+                isFetchingSeason ? "En chargement..." :
+                  isErrorSeason ? errorSeason.toString() :
+                    "Saisons"
+              }
+              seasons={
+                isFetchingSeason || isErrorSeason ? [] :
+                  isSuccessSeason && dataSeason && dataSeason.data ? dataSeason.data :
+                    []
+              }
+              seasonSelectHandler={handleSelectedSeason}
+            />
+          ) : null}
+        </div>
+        {!seasonId ? (
+          <div className='m-5'>Veuillez d'abord sélectionner une saison.</div>
+        ) : (
+          <>
+            <div className='m-5'>
+              <CreateNewSeasonTeamButton seasonId={seasonId}/>
+            </div>
+            <div className='m-5'>
+              {isFetching && <div>En chargement...</div>}
+              {isError && <div>{error.toString()}</div>}
+              {isSuccess && data && data.data && (
+                <ListOfSeasonTeams seasonId={seasonId} seasonTeams={data.data}/>
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
   )
 }
 

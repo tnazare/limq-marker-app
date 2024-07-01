@@ -12,13 +12,13 @@ interface CreateSeasonTeamFormProps {
 
 function CreateSeasonTeamForm({handleSubmit}: CreateSeasonTeamFormProps) {
   return (
-      <>
-        <form className="flex flex-col" onSubmit={handleSubmit}>
-          <TeamNameFormControl defaultValue=""/>
-          <TeamColorPickerFormControl/>
-          <SubmitButton/>
-        </form>
-      </>
+    <>
+      <form className="flex flex-col" onSubmit={handleSubmit}>
+        <TeamNameFormControl defaultValue=""/>
+        <TeamColorPickerFormControl/>
+        <SubmitButton/>
+      </form>
+    </>
   )
 }
 

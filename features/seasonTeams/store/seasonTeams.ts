@@ -16,19 +16,19 @@ export const seasonTeamsApi = api.injectEndpoints({
       query: (id) => `seasons/${id}/seasonTeams`,
     }),
     createSeasonTeam: builder.mutation<SeasonTeamDetailsResponseModel, SeasonTeamCreateInputWithSeasonId>({
-          query: (data) => {
-            const {seasonId} = data;
-            const dataToPost: Prisma.SeasonTeamCreateInput = {
-              color: data.color,
-              name: data.name,
-            }
-            return {
-              url: `seasons/${seasonId}/seasonTeams`,
-              method: 'POST',
-              body: dataToPost
-            }
+        query: (data) => {
+          const {seasonId} = data;
+          const dataToPost: Prisma.SeasonTeamCreateInput = {
+            color: data.color,
+            name: data.name,
+          }
+          return {
+            url: `seasons/${seasonId}/seasonTeams`,
+            method: 'POST',
+            body: dataToPost
           }
         }
+      }
     )
   }),
 })
