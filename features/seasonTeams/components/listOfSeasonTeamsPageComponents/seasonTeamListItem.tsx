@@ -1,11 +1,9 @@
 import React from 'react'
-import Link from 'next/link'
 import {TableCell, TableRow} from "@/features/common/components/shadcn-ui/table";
 import type {SeasonTeamPayload} from "@/features/seasonTeams/prismaPayloads/seasonTeamPayload";
 
 interface SeasonTeamListItemProps {
     seasonTeam: SeasonTeamPayload,
-    deleteHandler: (id: string) => void
 }
 
 function SeasonTeamListItem({seasonTeam}: SeasonTeamListItemProps) {
